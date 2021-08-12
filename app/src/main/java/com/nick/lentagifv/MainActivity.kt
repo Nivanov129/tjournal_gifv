@@ -53,6 +53,11 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onPause() {
+        feedList.onPausePlayer()
+        super.onPause()
+    }
+
     override fun onDestroy() {
         feedList.releasePlayer()
         super.onDestroy()

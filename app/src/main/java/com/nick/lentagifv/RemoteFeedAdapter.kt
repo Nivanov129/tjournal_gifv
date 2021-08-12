@@ -53,6 +53,7 @@ class RemoteFeedAdapter() :
     }
 
 
+
     inner class FeedItemViewHolder(private val view: View) :
         RecyclerView.ViewHolder(view) {
 
@@ -146,8 +147,10 @@ class RemoteFeedAdapter() :
                 height = it.data.thumbnail.data.height
 
             }
-
-
+            if (width/height < 0.8){
+                width = 4
+                height = 3
+            }
             val set = ConstraintSet()
             set.clone(rootView)
             set.setDimensionRatio(mediaContentView.id, "$width:$height")

@@ -120,13 +120,7 @@ public class ExoPlayerRecyclerView extends RecyclerView {
             mediaCoverImage.setVisibility(VISIBLE);
           }
 
-          // There's a special case when the end of the list has been reached.
-          // Need to handle that with this bit of logic
-          if (!recyclerView.canScrollVertically(1)) {
-            playVideo(true);
-          } else {
-            playVideo(false);
-          }
+          playVideo(!recyclerView.canScrollVertically(1));
         }
       }
 
@@ -374,12 +368,13 @@ public class ExoPlayerRecyclerView extends RecyclerView {
     videoSurfaceView.requestFocus();
     videoSurfaceView.setVisibility(VISIBLE);
     videoSurfaceView.setAlpha(1);
-    videoSurfaceView.setResizeMode(RESIZE_MODE_ZOOM);
+    videoSurfaceView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT);
     mediaCoverImage.setVisibility(GONE);
   }
 
   private void resetVideoView() {
     if (isVideoViewAdded) {
+      videoPlayer.stop();
       removeVideoView(videoSurfaceView);
       playPosition = -1;
       videoSurfaceView.setVisibility(INVISIBLE);
